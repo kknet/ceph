@@ -3335,7 +3335,8 @@ void object_copy_data_t::decode_classic(bufferlist::iterator& bl)
     map<string,bufferlist> omap;
     ::decode(omap, bl);
     omap_data.clear();
-    ::encode(omap, omap_data);
+    if (!omap.empty())
+      ::encode(omap, omap_data);
   }
   ::decode(cursor, bl);
   flags = 0;
@@ -3399,7 +3400,8 @@ void object_copy_data_t::decode(bufferlist::iterator& bl)
       map<string,bufferlist> omap;
       ::decode(omap, bl);
       omap_data.clear();
-      ::encode(omap, omap_data);
+      if (!omap.empty())
+	::encode(omap, omap_data);
     }
     ::decode(cursor, bl);
     if (struct_v >= 2)
